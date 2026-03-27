@@ -1,11 +1,15 @@
-from django.shortcuts import render
 from django.http import JsonResponse
+from django.views.decorators.csrf import csrf_exempt
 
 from .services import WordService
 
+import json
+
+@csrf_exempt
 def add_word(request):
-    word = request.GET.get("word")
-    meaning = request.GET.get("meaning")
+    data = json.loads(request.body)
+    word = data.get("title")
+    meaning = data.get("content")
     
     obj = WordService.add_word(word, meaning)
 
