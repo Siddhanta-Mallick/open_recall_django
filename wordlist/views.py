@@ -17,6 +17,6 @@ def add_word(request):
 def list_words(request):
     words = WordService.get_words()
 
-    data = [{"word":w.word, "meaining":w.meaning} for w in words]
+    data = [{"word":w.word, "meaning":w.meaning} for w in words]
 
     return JsonResponse(data, safe=False)
