@@ -21,6 +21,30 @@ def add_word(request):
 def list_words(request):
     words = WordService.get_words()
 
-    data = [{"word":w.word, "meaning":w.meaning} for w in words]
+    data = [{"pk":w.pk, "word":w.word, "meaning":w.meaning} for w in words]
 
     return JsonResponse(data, safe=False)
+
+def get_word(request):
+
+    pk_fetch = request.GET['pk']
+    word = WordService.get_word_by_pk(pk_fetch)
+
+    return  JsonResponse({'pk':word.pk , 'word':word.word, 'meaning':word.meaning}, safe=False) 
+
+@csrf_exempt
+def edit_word(request):
+
+    data = json.loads(request.body)
+    
+    pk_edit = data.get("pk")
+    word = data.get("title")
+    meaning = data.get("content")
+
+    word_to_edit = WordService.get_word_by_pk(pk_edit)
+    word_to_edit.word = word
+    word_to_edit.meaning = meaning
+
+    word_to_edit.save()
+
+    return JsonResponse({'status':'updated word'})
