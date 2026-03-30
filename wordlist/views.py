@@ -48,3 +48,10 @@ def edit_word(request):
     word_to_edit.save()
 
     return JsonResponse({'status':'updated word'})
+
+def get_questions(request):
+    # currently only random scheduler is avaiable so dont bother extracting scheduler info from request
+
+    questions = WordService.get_question_list()
+    data = [{'pk':word.pk, 'word':word.word, 'meaning':word.meaning} for word in questions]
+    return JsonResponse(data, safe=False)
