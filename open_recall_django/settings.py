@@ -44,6 +44,7 @@ CSRF_TRUSTED_ORIGINS = [
 
 INSTALLED_APPS = [
     'corsheaders',
+    'evaluator.apps.EvaluatorConfig',
     'wordlist.apps.WordlistConfig',
     'django.contrib.admin',
     'django.contrib.auth',
