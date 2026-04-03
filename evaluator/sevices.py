@@ -30,7 +30,7 @@ class EvaluatorService:
         word_string = json.dumps(word)
 
         model = genai.GenerativeModel(
-            model_name='gemini-2.5-flash',
+            model_name='gemini-3-flash-preview',
             system_instruction=SYSTEM_PROMPT
         )
 
