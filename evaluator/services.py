@@ -1,11 +1,11 @@
 from django.conf import settings
 import json
 import enum
-import google.generativeai as genai
+from google import genai
 import typing_extensions as typing
 
 API_KEY = settings.GEMINI_API_KEY
-genai.configure(api_key=API_KEY)
+client = genai.Client(api_key=API_KEY)
 
 SYSTEM_PROMPT_MEANING_CHECKER = """
 You are a vocabulary tutor that quizzes students on word meanings.
@@ -48,6 +48,7 @@ class EvaluatorService:
                 response_schema=EvaluationResult, 
             ),
         )
+        return json.loads(response.text)
 
     @staticmethod
     def check_sentence(word, student_sentence):

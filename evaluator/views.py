@@ -1,6 +1,6 @@
 from django.shortcuts import render
 from django.views.decorators.csrf import csrf_exempt
-from .sevices import EvaluatorService
+from .services import EvaluatorService
 from django.http import JsonResponse
 import json
 
@@ -14,7 +14,7 @@ def check_answer(request):
 
     evaluation = EvaluatorService.check_answer({word:word, meaning:meaning}, student_answer)
 
-    return JsonResponse(evaluation)
+    return JsonResponse(evaluation, safe=False)
 
 @csrf_exempt
 def check_sentence(request):
